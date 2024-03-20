@@ -5,13 +5,13 @@ from urllib.parse import urljoin
 import csv
 
 # Lien de la page à scraper
-url = "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+url = "https://books.toscrape.com/catalogue/the-crossover_398/index.html"
 
-# Obtention du contenu de la page
+# Obtention du contenu de la page depuis le module requests
 reponse = requests.get(url)
 page = reponse.content
 
-# Analyse de la page html avec BeautifulSoup
+# Analyse de la page html avec le module BeautifulSoup
 soup = BeautifulSoup(page, "html.parser")
 
 # Recherche Title
@@ -72,14 +72,14 @@ else :
 
 # Recherche Lien image
 image_url_list = []
-base_url = "https://books.toscrape.com/"
-image_url = urljoin(base_url, soup.find("div", class_="item active").find("img")["src"])
+image_base_url = "https://books.toscrape.com/"
+image_url = urljoin(image_base_url, soup.find("div", class_="item active").find("img")["src"])
 image_url_list.append(image_url.strip())
 
 # Création et écriture des données extraites dans un fichier CSV
-en_tete = ["Title", "Product page URL", "UPC", "Price incl. Tax", "Price excl. Tax", "Number available", "Product Description", "Category", "Review Rating"]
+en_tete = ["Title", "Product page URL", "UPC", "Price incl. Tax", "Price excl. Tax", "Number available", "Product Description", "Category", "Review Rating", "Product image url"]
 with open("etape_1.csv", "w") as etape_1_csv_file:
     writer = csv.writer(etape_1_csv_file, delimiter=",")
     writer.writerow(en_tete)
-    for element in zip (product_title_list, product_page_url_list, universal_product_code_list, price_including_tax_list, price_excluding_tax_list, number_available_list, product_description_list, category_list, review_rating_list):
-        writer.writerow([product_title, product_page_url, universal_product_code, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating_list])
+    for element in zip (product_title_list, product_page_url_list, universal_product_code_list, price_including_tax_list, price_excluding_tax_list, number_available_list, product_description_list, category_list, review_rating_list, image_url_list):
+        writer.writerow([product_title, product_page_url, universal_product_code, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating_list, image_url])
