@@ -27,12 +27,11 @@ reponse = requests.get(url)
 soup = BeautifulSoup(reponse.content, "html.parser")
 
 # Recherche de l'url de chaque produit del catégorie
-category_products_links_base_url = "https://books.toscrape.com/catalogue/"
 category_products_links = soup.find_all("a", title = True)
 
 for element_product_link in category_products_links:
     href_product_link = element_product_link["href"]
-    full_category_link = href_product_link.replace("../../../", category_products_links_base_url)
+    full_category_link = href_product_link.replace("../../../", "https://books.toscrape.com/catalogue/")
     category_products_links_list.append(full_category_link)
 
 def data_collect():
