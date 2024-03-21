@@ -44,7 +44,7 @@ def data_collect():
     product_title = soup.find("h1").string
     product_title_list.append(product_title)
 
-    product_page_url = url
+    product_page_url = category_links
     product_page_url_list.append(product_page_url)
 
     universal_product_code = soup.find("td").string
@@ -65,15 +65,14 @@ def data_collect():
     category = soup.find("ul", class_="breadcrumb").find_all("li")[2].text.strip()
     category_list.append(category)
 
-    star_class_name = "star-rating Three"
-    review_rating = soup.find("p", class_=star_class_name)
-    if "One" in star_class_name:
+    rating = str(soup.find("div", class_="col-sm-6 product_main").find_all("p")[2])
+    if "One" in rating:
         review_rating_list.append("1/5")
-    elif "Two" in star_class_name:
+    elif "Two" in rating:
         review_rating_list.append("2/5")
-    elif "Three" in star_class_name:
+    elif "Three" in rating:
         review_rating_list.append("3/5")
-    elif "Four" in star_class_name:
+    elif "Four" in rating:
         review_rating_list.append("4/5")
     else :
         review_rating_list.append("5/5")
@@ -88,7 +87,7 @@ def data_csv():
             writer = csv.writer(etape_2_csv_file, delimiter=",")
             writer.writerow(en_tete)
             for i in range(len(product_title_list)):
-                row = [product_title_list[i], product_page_url_list[i], universal_product_code_list[i], price_including_tax_list[i], price_excluding_tax_list[i], number_available_list[i], product_description_list[i], category_list[i], review_rating_list[i], image_url_list[i]]
+                row = [product_title_list[i], product_page_url_list[i], universal_product_code_list[i], price_including_tax_list[i], price_excluding_tax_list[i], number_available_list[i], product_description_list[i], category_list[i], "'" + review_rating_list[i] + "'", image_url_list[i]]
                 writer.writerow(row)
 
 for category_links in category_products_links_list:

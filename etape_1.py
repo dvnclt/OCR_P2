@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 import csv
 
 # Lien de la page à scraper
-url = "https://books.toscrape.com/catalogue/the-crossover_398/index.html"
+url = "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
 
 # Obtention du contenu de la page depuis le module requests
 reponse = requests.get(url)
@@ -56,15 +56,14 @@ category_list.append(category)
 
 # Recherche Review Rating
 review_rating_list = []
-star_class_name = "star-rating Three"
-review_rating = soup.find("p", class_=star_class_name)
-if "One" in star_class_name:
+rating = str(soup.find("div", class_="col-sm-6 product_main").find_all("p")[2])
+if "One" in rating:
     review_rating_list.append("1/5")
-elif "Two" in star_class_name:
+elif "Two" in rating:
     review_rating_list.append("2/5")
-elif "Three" in star_class_name:
+elif "Three" in rating:
     review_rating_list.append("3/5")
-elif "Four" in star_class_name:
+elif "Four" in rating:
     review_rating_list.append("4/5")
 else :
     review_rating_list.append("5/5")
