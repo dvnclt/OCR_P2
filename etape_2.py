@@ -21,10 +21,10 @@ image_url_list = []
 url = "https://books.toscrape.com/catalogue/category/books/poetry_23/index.html"
 
 # Obtention du contenu de la page
-reponse = requests.get(url)
+response = requests.get(url)
 
 # Analyse de la page html avec BeautifulSoup
-soup = BeautifulSoup(reponse.content, "html.parser")
+soup = BeautifulSoup(response.content, "html.parser")
 
 # Recherche de l'url de chaque produit del catégorie
 category_products_links = soup.find_all("a", title = True)
@@ -36,9 +36,9 @@ for element_product_link in category_products_links:
 
 def data_collect():
     
-    reponse = requests.get(category_links)
+    response = requests.get(category_links)
 
-    soup = BeautifulSoup(reponse.content, "html.parser")
+    soup = BeautifulSoup(response.content, "html.parser")
 
     product_title = soup.find("h1").string
     product_title_list.append(product_title)

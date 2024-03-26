@@ -8,8 +8,8 @@ import csv
 url = "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
 
 # Obtention du contenu de la page depuis le module requests
-reponse = requests.get(url)
-page = reponse.content
+response = requests.get(url)
+page = response.content
 
 # Analyse de la page html avec le module BeautifulSoup
 soup = BeautifulSoup(page, "html.parser")
