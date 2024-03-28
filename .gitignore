@@ -1,6 +1,9 @@
 env/
+etape_1.py
 etape_1.csv
+etape_2.py
 etape_2.csv
-etape_3.csv
+
 __pycache__/
-csv_files_directory/
+csv_directory/
+images_directory/
