@@ -1,9 +1,13 @@
-env/
+.DS_Store
 etape_1.py
 etape_1.csv
 etape_2.py
 etape_2.csv
+projet_2.py
+utilsp2.py
+none.txt
 
+env/
 __pycache__/
 csv_directory/
 images_directory/
