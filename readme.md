@@ -2,14 +2,14 @@
 
 ## Introduction
 
-Ce projet vise à créer un système de surveillance des prix pour le site "Books to Scrape", en élaborant une version bêta limitée à un seul revendeur. 
-Le système extrait les données des produits disponibles sur le site et les stocke dans des fichiers CSV, tout en téléchargeant également les images correspondantes.
+Ce projet vise à créer un système de surveillance des prix pour le site "Books to Scrape", en élaborant une version bêta. 
+Le système extrait les données des produits disponibles sur le site et les stock dans des fichiers CSV, tout en téléchargeant également les images correspondantes.
 
 
 ## Fonctionnalités
 
 - Extraction des URLs des produits par catégorie
-- Collecte des données des produits : titre, URL de la page produit, code UPC, prix TTC, prix HT, disponibilité, description, catégorie, notation des critiques et URL de l'image
+- Collecte des données des produits : titre, URL de la page produit, code UPC, prix TTC, prix HT, disponibilité, description, catégorie, notation et URL de l'image
 - Écriture des données dans des fichiers CSV organisés par catégorie
 - Téléchargement des images des produits dans des dossiers organisés par catégorie
 - Vérification de l'intégrité des données extraites
