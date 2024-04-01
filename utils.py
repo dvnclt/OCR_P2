@@ -1,9 +1,11 @@
+# Import des modules nécessaires
 import requests
 from bs4 import BeautifulSoup
 import csv
 import os
 import re
 
+# Création des listes nécessaires à la collecte des données
 product_link_list = []
 product_title_list = []
 product_page_url_list = []
@@ -17,6 +19,7 @@ review_rating_list = []
 image_url_list = []
 count = []
 
+# Définition de la fonction de recherche des urls produits et gestion des pages
 def collect_product_urls(full_category_link):
     category_page = [full_category_link]
     category_name = full_category_link.split('/')[-2].split('_')[0].capitalize()
@@ -44,6 +47,7 @@ def collect_product_urls(full_category_link):
     print(f"Nombre de produits trouvés dans la catégorie {category_name}:", total_product_link_by_category)
     print("Nombre total de produits trouvés : ", len(count))
 
+# Définition de la fonction de collecte des données par produit
 def collect_product_data(product_item):
     response = requests.get(product_item)
     soup = BeautifulSoup(response.content, "html.parser")
@@ -86,6 +90,7 @@ def collect_product_data(product_item):
     image_url = "https://books.toscrape.com/" + soup.find("div", class_="item active").find("img")["src"]
     image_url_list.append(image_url.strip())
 
+# Définition de la fonction d'écriture des fichiers csv
 def write_data_csv(csv_folder, category_csv_name):
     csv_file_path = os.path.join(csv_folder, category_csv_name + ".csv")
     en_tete = ["Title", "Product page URL", "UPC", "Price incl. Tax", "Price excl. Tax", "Number available", "Product Description", "Category", "Review Rating", "Product image url"]
@@ -96,6 +101,7 @@ def write_data_csv(csv_folder, category_csv_name):
             row = [product_title_list[i], product_page_url_list[i], universal_product_code_list[i], price_including_tax_list[i], price_excluding_tax_list[i], number_available_list[i], product_description_list[i], category_list[i], "'" + review_rating_list[i] + "'", image_url_list[i]]
             writer.writerow(row)
 
+# Définition de la fonction de téléchargement des images
 def images_download(image_folder):
     for image_url, title, category in zip(image_url_list, product_title_list, category_list):
         category_folder = os.path.join(image_folder, category.lower().replace(" ", "_"))
