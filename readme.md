@@ -3,6 +3,7 @@
 ## Introduction
 
 Ce projet vise à créer un système de surveillance des prix pour le site "Books to Scrape", en élaborant une version bêta. 
+
 Le système extrait les données des produits disponibles sur le site et les stock dans des fichiers CSV, tout en téléchargeant également les images correspondantes.
 
 
@@ -18,16 +19,16 @@ Le système extrait les données des produits disponibles sur le site et les sto
 ## Installation
 
 1. Clonez ce dépôt sur votre machine locale :
-   git clone https://github.com/dvnclt/OCR-projet_2.git
+   "git clone https://github.com/dvnclt/OCR-projet_2.git"
 
 2. Installer les dépendances à l'aide de pip :
-   pip install -r requirements.txt
+   "pip install -r requirements.txt"
    
 
 ## Utilisation
 
 1. Exécutez le script principal "main.py" :
-   python main.py
+   "python main.py"
 
 2. Les données seront extraites, traitées et stockées (par catégorie) dans des fichiers CSV contenus dans le dossier csv_directory.
    Les images seront téléchargées dans le dossier images_directory.
