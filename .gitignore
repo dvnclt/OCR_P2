@@ -1,7 +1,5 @@
 .DS_Store
-etape_1.py
 etape_1.csv
-etape_2.py
 etape_2.csv
 mentorat.txt
 project_notebook.txt
@@ -11,4 +9,3 @@ env/
 __pycache__/
 csv_directory/
 images_directory/
-Livrables/
