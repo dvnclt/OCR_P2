@@ -45,8 +45,3 @@ Le système extrait les données des produits disponibles sur le site et les sto
 
 2. Les données seront extraites, traitées et stockées (par catégorie) dans des fichiers CSV contenus dans le dossier csv_directory.
    Les images seront téléchargées dans le dossier images_directory.
-
-
-## Auteur
-
-Ce projet a été réalisé par Damien Vincelot.
