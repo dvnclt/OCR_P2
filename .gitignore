@@ -1,5 +1,6 @@
+.DS_Store
+
 env/
 __pycache__/
 csv_directory/
 images_directory/
-.DS_Store/
