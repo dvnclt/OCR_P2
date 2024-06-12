@@ -1,53 +1,45 @@
 import requests
-from bs4 import BeautifulSoup
 import time
-from utils import *
+from utils import Site, Category, CSVWriter, ImageDownloader
 
-session = requests.Session()
 
-url = "https://books.toscrape.com/index.html"
+SESSION = requests.Session()
+URL = "https://books.toscrape.com/index.html"
 
+# Commence un timer au début de l'exécution du programme
 start_time = time.time()
 
-try :
-    response = session.get(url)
+# Lien du site cible (BooktoScrappe)
+target = Site(URL)
 
-    soup = BeautifulSoup(response.content, "html.parser")
+# Recherche l'ensemble des catégories
+category_urls = target.find_category_urls()
 
-    category_urls_list = []
+for url in category_urls:
+    """
+    Pour chaque catégorie, recherche l'ensemble des pages
+    Pour chaque page, recherche l'ensemble des livres
+    Pour chaque livre, collecte l'ensemble des données
 
-    category_link = soup.find("ul", class_="nav nav-list").find("li").find_all("a", href=True)
+    Exporte les données dans un format csv dans un dossier dédié
 
+    Télécharge les images de chaque livre
+    """
+    category = Category(url)
+    category_name = url.split('/')[-2].split('_')[0]
+    pages = category.find_all_pages()
+    books = category.find_all_books()
+    data = category.collect_all_data()
 
-    for item in category_link[1:]:
-        category_url = "https://books.toscrape.com/" + item['href']
-        category_urls_list.append(category_url)
+    csv_writer = CSVWriter(category_name, data)
+    csv_writer.write_csv_files()
 
-        category_name = category_url.split('/')[-2].split('_')[0]
+    image = ImageDownloader(category_name, data)
+    image.download_image()
 
-        page_urls = get_all_page_urls(category_url)
+    print(f"{category_name} : Done")
 
-        products_urls = get_all_products_urls(page_urls)
-        
-        write_csv_files(products_urls, category_name)
+end_time = time.time()
+elapsed_time = end_time - start_time
 
-        get_images_jpg(category_name, get_all_product_data(products_urls))
-        
-        print(f"Catégorie {category_name} : done")
-
-    end_time = time.time()
-    execution_time = (end_time - start_time) / 60
-
-    print("Programme terminé. Temps d'exécution du programme : {:.2f} minutes".format(execution_time))
-
-except requests.exceptions.ConnectionError:
-    print("Erreur de connexion. Quittez le programme, vérifiez votre connexion réseau et relancez le programme")
-
-except requests.exceptions.Timeout:
-    print("La requête a expiré. Veuillez quitter le programme et réessayer plus tard.")
-
-except requests.exceptions.RequestException as e:
-    print("Une erreur s'est produite lors de la requête HTTP :", e)
-
-except Exception as e:
-    print("Une erreur inattendue s'est produite :", e)
+print("Temps d'exécution :", elapsed_time, "secondes")
